@@ -49,6 +49,7 @@ Variables are read from `process.env` where they're needed and documented in `.e
 - **Design tokens** (`src/styles/tokens.css`, generated) are the only source of visual values. `globals.css` maps them into Tailwind and turns everything else off; see [../design/README.md](../design/README.md).
 - **Primitives** in `src/components/ui` are shadcn/ui components on Base UI, rewritten against the tokens and the D45/M45 variants. Dialogs become bottom sheets below 768px.
 - **Fonts** come from `next/font` (`src/lib/fonts.ts`) and are set on `<html>`, where the token text styles pick them up.
+- **Auth layout:** `src/app/(auth)/layout.tsx` wraps every signed-out route in `AuthLayout` (`src/components/layout/auth-layout.tsx`): the slanted green stripe panel (`bg-stripes-banner`, 5/12 width) on the left from 768px up, page content on the right. Pages render only their content.
 - **Layout:** mobile-first. Base classes are the M frames (390px), and `md:` (768px) is the D frames (1440px). The app shell (sidebar, app bar, tab bar, drawer) isn't built yet; it will wrap the `(app)` layout.
 
 ## Features
