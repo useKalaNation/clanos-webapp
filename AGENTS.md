@@ -92,7 +92,7 @@ src/
     index.ts            the feature's public API; other code imports only from here
   lib/                  api client, query client, utils, security helpers
   styles/tokens.css     generated; never edit
-  proxy.ts              sign-in redirects and security headers
+  proxy.ts              security headers (and the sign-in redirect, once API auth is wired)
   test/                 test setup, MSW handlers and fixtures
 ```
 

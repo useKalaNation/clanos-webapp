@@ -5,7 +5,7 @@ CLANOS is a Next.js App Router app that talks to a **separate backend API**. Thi
 ```text
 Browser ──▶ proxy.ts ──▶ Next.js (Server Components, per-request render) ──▶ HTML
    │            │
-   │            └─ sign-in redirect, security headers, CSP nonce
+   │            └─ security headers, CSP nonce
    │
    └──────── HTTPS + session cookie ──▶ CLANOS API (separate backend)
 ```
@@ -14,11 +14,11 @@ Browser ──▶ proxy.ts ──▶ Next.js (Server Components, per-request ren
 
 Routes live in `src/app`, grouped by who can see them. Groups don't change URLs.
 
-| Group      | Who                                      | Routes                                                                                      |
-| ---------- | ---------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `(auth)`   | Signed-out visitors                      | `/sign-in`, `/sign-up`, `/sign-up/verify`, `/forgot-password[/sent]`, `/reset-password/...` |
-| `(public)` | Anyone with the link                     | `/invitations/[token]`                                                                      |
-| `(app)`    | Signed-in players; the proxy enforces it | `/dashboard`, `/alerts`, `/me`, `/onboarding/...`, `/clans/...`, `/admin/users`             |
+| Group      | Who                                     | Routes                                                                                      |
+| ---------- | --------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `(auth)`   | Signed-out visitors                     | `/sign-in`, `/sign-up`, `/sign-up/verify`, `/forgot-password[/sent]`, `/reset-password/...` |
+| `(public)` | Anyone with the link                    | `/invitations/[token]`                                                                      |
+| `(app)`    | Signed-in players (open until API auth) | `/dashboard`, `/alerts`, `/me`, `/onboarding/...`, `/clans/...`, `/admin/users`             |
 
 Every route in the [HANDOFF.md](../design/HANDOFF.md) screen inventory has a page. Until a screen is built, its page renders `ScreenPlaceholder` with the D##/M## frames to build it from, and a comment at the top names the screens. `src/lib/routes.ts` lists every route; build links from `ROUTES`, never by hand.
 
@@ -35,14 +35,15 @@ Pages stay thin: they read params and compose components from `src/features/<fea
 `src/proxy.ts` runs before every page (static assets excluded):
 
 1. Generates a nonce and builds the Content-Security-Policy (`src/lib/security/headers.ts`).
-2. If the path is an app route and there's no session cookie, redirects to `/sign-in?next=<path>`. It only checks that the cookie exists; the API validates it on every call.
-3. Otherwise passes the nonce to the app in the `x-nonce` request header and sets the security headers on the response.
+2. Passes the nonce to the app in the `x-nonce` request header and sets the security headers on the response.
+
+There's no sign-in redirect yet: app routes open without a session until the API's auth is wired ([ADR 0008](../adr/0008-no-sign-in-gate-until-api-auth.md)).
 
 `next.config.ts` sets the same non-CSP headers on every response, static files included. [SECURITY.md](../../SECURITY.md) lists every header and the reasoning behind the CSP.
 
 ## Environment
 
-Variables are read from `process.env` where they're needed and documented in `.env.example`. Today only the proxy reads any: `NEXT_PUBLIC_API_URL` (the API origin allowed in the CSP) and `SESSION_COOKIE_NAME` (default `clanos_session`). `NEXT_PUBLIC_*` values are inlined into the build, so changing one means rebuilding; everything else stays on the server. There's no validation layer, by choice ([ADR 0001](../adr/0001-stack.md)).
+Variables are read from `process.env` where they're needed and documented in `.env.example`. Today only the proxy reads one: `NEXT_PUBLIC_API_URL` (the API origin allowed in the CSP). `NEXT_PUBLIC_*` values are inlined into the build, so changing one means rebuilding; everything else stays on the server. There's no validation layer, by choice ([ADR 0001](../adr/0001-stack.md)).
 
 ## UI
 
