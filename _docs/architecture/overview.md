@@ -50,7 +50,8 @@ Variables are read from `process.env` where they're needed and documented in `.e
 - **Primitives** in `src/components/ui` are shadcn/ui components on Base UI, rewritten against the tokens and the D45/M45 variants. Dialogs become bottom sheets below 768px.
 - **Fonts** come from `next/font` (`src/lib/fonts.ts`) and are set on `<html>`, where the token text styles pick them up.
 - **Auth layout:** `src/app/(auth)/layout.tsx` wraps every signed-out route in `AuthLayout` (`src/components/layout/auth-layout.tsx`): the slanted green stripe panel (`bg-stripes-banner`, 5/12 width) on the left from 768px up, page content on the right. Pages render only their content.
-- **Layout:** mobile-first. Base classes are the M frames (390px), and `md:` (768px) is the D frames (1440px). The app shell (sidebar, app bar, tab bar, drawer) isn't built yet; it will wrap the `(app)` layout.
+- **Layout:** mobile-first. Base classes are the M frames (390px), and `md:` (768px) is the D frames (1440px). The app shell is described below.
+- **App shell:** `src/app/(app)/layout.tsx` wraps every signed-in route in `AppShell` (`src/components/layout/app-shell.tsx`). From 768px up it is the 236px `Sidebar` (brand and grouped navigation, plus the optional "Viewing as" role switcher) beside a 72px `TopBar`. Below 768px the `TopBar` becomes the 56px app bar with a menu button that opens `NavDrawer` (the same navigation in a left sheet), and `TabBar` (Home, Clans, My clan, Alerts, Me) sits at the bottom; the main content leaves room for it with `--nav-bottom-bar`. The role switcher is a developer aid for previewing role-based navigation: it is hidden unless `showRoleSwitcher` is passed to `AppShell`. The page title and eyebrow follow the active nav item, and `AppShell` takes `title` and `eyebrow` props to override them. The navigation itself, its role rules and the active-item matching live in `src/components/layout/nav-config.ts`; links come from `ROUTES`. Until auth and the API exist, the layout passes the clan, user and counts from `app-shell-placeholder.ts`.
 
 ## Features
 
@@ -69,7 +70,7 @@ ESLint stops one feature from importing another feature's internals, and stops a
 
 ## State
 
-[ADR 0002](../adr/0002-state-management.md) sets where state lives: server data in TanStack Query, shareable view state in the URL, shared UI state in Zustand (`src/components/layout/drawer-store.ts` is the example), and everything else local. The API client (axios), TanStack Query and MSW mocks get added with the first feature that calls the API.
+[ADR 0002](../adr/0002-state-management.md) sets where state lives: server data in TanStack Query, shareable view state in the URL, shared UI state in Zustand (`src/components/layout/drawer-store.ts` for the mobile drawer and `viewing-as-store.ts` for the sidebar's "Viewing as" role), and everything else local. The API client (axios), TanStack Query and MSW mocks get added with the first feature that calls the API.
 
 ## Testing
 
