@@ -4,26 +4,13 @@ import { describe, expect, it } from 'vitest';
 
 import { proxy } from './proxy';
 
-const SESSION_COOKIE = 'clanos_session';
-
-function visit(path: string, { signedIn = false } = {}) {
-  const request = new NextRequest(new URL(path, 'https://app.clanos.test'));
-  if (signedIn) request.cookies.set(SESSION_COOKIE, 'session-from-the-api');
-  return proxy(request);
+function visit(path: string) {
+  return proxy(new NextRequest(new URL(path, 'https://app.clanos.test')));
 }
 
 describe('proxy', () => {
-  it('sends signed-out visitors from app routes to sign-in, remembering where they were', () => {
+  it('opens app routes without a session until API auth is wired', () => {
     const response = visit('/clans/rvnt/members?tab=invitations');
-
-    expect(response.status).toBe(307);
-    const location = new URL(response.headers.get('location') ?? '');
-    expect(location.pathname).toBe('/sign-in');
-    expect(location.searchParams.get('next')).toBe('/clans/rvnt/members?tab=invitations');
-  });
-
-  it('lets a visitor with a session cookie through', () => {
-    const response = visit('/dashboard', { signedIn: true });
 
     expect(response.status).toBe(200);
     expect(response.headers.get('location')).toBeNull();
@@ -51,7 +38,7 @@ describe('proxy', () => {
     expect(first).not.toBe(second);
   });
 
-  it('sets the security headers on redirects too', () => {
+  it('sets the security headers on app routes too', () => {
     const response = visit('/dashboard');
 
     expect(response.headers.get('x-content-type-options')).toBe('nosniff');

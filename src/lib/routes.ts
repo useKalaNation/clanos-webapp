@@ -27,7 +27,7 @@ export const ROUTES = {
   adminUsers: '/admin/users',
 } as const;
 
-/** Routes in the (app) group: signed-out visitors are sent to sign-in. */
+/** Routes in the (app) group, for the sign-in gate that returns with API auth (ADR 0008). */
 const APP_ROUTE_PREFIXES = ['/dashboard', '/alerts', '/me', '/clans', '/onboarding', '/admin'];
 
 export function isAppRoute(pathname: string): boolean {
