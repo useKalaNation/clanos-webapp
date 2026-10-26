@@ -23,7 +23,11 @@ describe('NavDrawer', () => {
     });
 
     expect(await screen.findByRole('dialog', { name: 'Navigation' })).toBeInTheDocument();
+<<<<<<< HEAD
     expect(screen.getByRole('link', { name: 'Clan directory' })).toBeInTheDocument();
+=======
+    expect(screen.getByRole('link', { name: 'Dashboard' })).toBeInTheDocument();
+>>>>>>> b875bb6 (feat(layout): add reusable app shell with sidebar and top bar)
   });
 
   it('closes when a link is chosen', async () => {

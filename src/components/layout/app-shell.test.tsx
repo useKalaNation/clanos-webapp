@@ -33,6 +33,16 @@ describe('AppShell', () => {
     expect(screen.getByText('Clan', { selector: 'p' })).toBeInTheDocument();
   });
 
+<<<<<<< HEAD
+=======
+  it('still titles the clan directory page though its nav item is hidden', () => {
+    render(<AppShell {...props}>Page</AppShell>);
+
+    expect(screen.getByRole('heading', { level: 1, name: 'Clan directory' })).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Clan directory' })).not.toBeInTheDocument();
+  });
+
+>>>>>>> b875bb6 (feat(layout): add reusable app shell with sidebar and top bar)
   it('lets a page override the title', () => {
     render(
       <AppShell {...props} title="Nightfall Order" eyebrow="Clan profile">

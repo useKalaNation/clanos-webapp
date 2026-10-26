@@ -38,6 +38,12 @@ export function SidebarContent({
   const role = useViewingAsStore((state) => state.role);
 
   const groups = visibleNavGroups(getNavGroups({ clanId, clanName }), role);
+<<<<<<< HEAD
+=======
+  const listed = groups
+    .map((group) => ({ ...group, items: group.items.filter((item) => !item.hidden) }))
+    .filter((group) => group.items.length > 0);
+>>>>>>> b875bb6 (feat(layout): add reusable app shell with sidebar and top bar)
   const active = findActive<NavItem>(
     groups.flatMap((group) => group.items),
     pathname,
@@ -50,7 +56,11 @@ export function SidebarContent({
       </div>
       {showRoleSwitcher ? <RoleSwitcher className="border-b border-bd" /> : null}
       <nav aria-label="Main" className="flex flex-col gap-sp-20 px-sp-10 py-sp-16">
+<<<<<<< HEAD
         {groups.map((group) => {
+=======
+        {listed.map((group) => {
+>>>>>>> b875bb6 (feat(layout): add reusable app shell with sidebar and top bar)
           const labelId = `${idPrefix}-${group.id}`;
           return (
             <section key={group.id} aria-labelledby={labelId} className="flex flex-col gap-sp-8">
