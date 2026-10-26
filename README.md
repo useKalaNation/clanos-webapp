@@ -14,7 +14,7 @@ cp .env.example .env.local       # then adjust the values if you need to
 pnpm dev                         # starts on localhost:3000
 ```
 
-- `/` redirects to the dashboard, and signed-out visitors are sent to `/sign-in`. Until sign-in is built, add a cookie named `clanos_session` (any value) in your browser's dev tools to open app routes.
+- `/` redirects to the dashboard. Every route opens without signing in until the API's auth is wired ([ADR 0008](_docs/adr/0008-no-sign-in-gate-until-api-auth.md)).
 - `pnpm storybook` opens the component docs on port 6006: every UI component in every variant, with its props and an accessibility check.
 
 ## Scripts
@@ -51,7 +51,7 @@ src/
   features/<feature>/   a feature's api/, components/, schemas/ and store, exported through index.ts
   lib/                  utilities, routes, security helpers, fonts, providers
   styles/tokens.css     the design tokens; generated, never edited by hand
-  proxy.ts              sign-in redirects and security headers
+  proxy.ts              security headers (and the sign-in redirect, once API auth is wired)
 ```
 
 `AGENTS.md` is the rulebook for this codebase, for people and coding agents alike. Read it before your first change.

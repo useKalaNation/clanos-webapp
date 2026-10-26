@@ -25,7 +25,7 @@ These are the non-negotiable rules from [AGENTS.md](AGENTS.md#7-security-non-neg
 ## What the app already enforces
 
 - **Proxy** (`src/proxy.ts`) runs before every page:
-  - Signed-out visitors to app routes go to `/sign-in?next=…`. It only checks that the session cookie exists; the API decides whether it's valid. The session cookie therefore has to be readable by the web app's server, so the API sets it for a domain both share.
+  - **No sign-in redirect yet.** App routes open without a session until the API's auth is wired; they show placeholders and no data ([ADR 0008](_docs/adr/0008-no-sign-in-gate-until-api-auth.md)). The redirect to `/sign-in?next=…` returns with sign-in, and the API stays the authority either way.
   - `safeNextPath` (`src/lib/security/safe-redirect.ts`) keeps `?next=` on this site, so sign-in can't be used as an open redirect.
 - **Content-Security-Policy**, built in `src/lib/security/headers.ts`, with a new nonce per request:
   - `script-src 'self' 'nonce-…' 'strict-dynamic'`: only scripts carrying this request's nonce run. Next.js adds the nonce to its own scripts; use `useNonce()` for any other `<Script>`. Development adds `'unsafe-eval'`, which React needs for debug stacks.
@@ -33,7 +33,7 @@ These are the non-negotiable rules from [AGENTS.md](AGENTS.md#7-security-non-neg
   - `connect-src` allows only this app and the API origin. `frame-ancestors 'none'`, `object-src 'none'`, `base-uri 'self'` and `form-action 'self'`; `upgrade-insecure-requests` in production.
   - Every page renders per request (the root layout reads the nonce), which a nonce-based CSP requires.
 - **Other headers** on every response, static files included: `Strict-Transport-Security` (production), `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: strict-origin-when-cross-origin`, and a `Permissions-Policy` that turns off camera, microphone, geolocation, payment, USB and topics. `X-Powered-By` is off.
-- **Environment:** `.env.example` documents every variable. When one is missing the proxy falls back safely: no API origin in `connect-src`, and the default session cookie name.
+- **Environment:** `.env.example` documents every variable. When one is missing the proxy falls back safely: no API origin in `connect-src`.
 - **CI:** CodeQL (security-extended) on the app and the workflows, dependency review, and a gitleaks secret scan. Third-party actions are pinned to commit SHAs, and every workflow has least-privilege permissions.
 
 A Playwright smoke test fails on any console error, which is how a CSP violation shows up, so a change that breaks the policy fails CI.
