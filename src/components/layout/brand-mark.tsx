@@ -15,10 +15,7 @@ export function BrandMark({ onNavigate, className }: BrandMarkProps) {
     <Link
       href={ROUTES.dashboard}
       onClick={onNavigate}
-<<<<<<< HEAD
-=======
       aria-label="CLANOS, Clan operating system. Go to dashboard"
->>>>>>> b875bb6 (feat(layout): add reusable app shell with sidebar and top bar)
       className={cn('flex items-center gap-sp-10 rounded-md', focusRing, className)}
     >
       <span
@@ -27,11 +24,7 @@ export function BrandMark({ onNavigate, className }: BrandMarkProps) {
       >
         C
       </span>
-<<<<<<< HEAD
-      <span className="flex flex-col">
-=======
       <span aria-hidden="true" className="flex flex-col">
->>>>>>> b875bb6 (feat(layout): add reusable app shell with sidebar and top bar)
         <span className="t-wordmark text-tx">CLANOS</span>
         <span className="t-label text-mut">Clan operating system</span>
       </span>

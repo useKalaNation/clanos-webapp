@@ -1,19 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-<<<<<<< HEAD
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-=======
-import { beforeEach, describe, expect, it } from 'vitest';
->>>>>>> b875bb6 (feat(layout): add reusable app shell with sidebar and top bar)
 
 import { useDrawerStore } from './drawer-store';
 import { TopBar } from './top-bar';
 
-<<<<<<< HEAD
 vi.mock('next/navigation', () => ({ usePathname: () => '/clans' }));
 
-=======
->>>>>>> b875bb6 (feat(layout): add reusable app shell with sidebar and top bar)
 const user = { name: 'Rvnt_Kaze' };
 
 describe('TopBar', () => {
@@ -28,17 +21,10 @@ describe('TopBar', () => {
     expect(screen.getByText('Public')).toBeInTheDocument();
   });
 
-<<<<<<< HEAD
   it('shows the current route', () => {
     render(<TopBar title="Clan directory" user={user} />);
 
     expect(screen.getByText('/clans')).toBeInTheDocument();
-=======
-  it('does not show the current route', () => {
-    render(<TopBar title="Clan directory" user={user} />);
-
-    expect(screen.queryByText('/clans')).not.toBeInTheDocument();
->>>>>>> b875bb6 (feat(layout): add reusable app shell with sidebar and top bar)
   });
 
   it('links to notifications and announces the unread count', () => {

@@ -34,16 +34,6 @@ describe('SidebarContent', () => {
     expect(current.map((link) => link.textContent)).toEqual(['Members']);
   });
 
-<<<<<<< HEAD
-=======
-  it('hides the clan directory item from the list', () => {
-    render(<SidebarContent {...props} />);
-
-    expect(screen.queryByRole('link', { name: 'Clan directory' })).not.toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Clan profile' })).toBeInTheDocument();
-  });
-
->>>>>>> b875bb6 (feat(layout): add reusable app shell with sidebar and top bar)
   it('shows counts next to their items', () => {
     render(<SidebarContent {...props} counts={{ members: 48, announcements: 3 }} />);
 

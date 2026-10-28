@@ -37,16 +37,6 @@ describe('findActive', () => {
   });
 });
 
-<<<<<<< HEAD
-=======
-describe('hidden items', () => {
-  it('stay matchable so the top bar can still name the page', () => {
-    expect(items.find((item) => item.id === 'clan-directory')?.hidden).toBe(true);
-    expect(findActive<NavItem>(items, '/clans')?.label).toBe('Clan directory');
-  });
-});
-
->>>>>>> b875bb6 (feat(layout): add reusable app shell with sidebar and top bar)
 describe('visibleNavGroups', () => {
   it('hides the Admin group from everyone but admins', () => {
     const groups = getNavGroups(context);
