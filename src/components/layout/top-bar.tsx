@@ -2,7 +2,6 @@
 
 import { BellIcon, MenuIcon } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -28,11 +27,10 @@ interface TopBarProps {
 }
 
 /**
- * Desktop top bar and mobile app bar (D18, M18): page title on the left, the current route,
- * notifications and the signed-in player on the right. On mobile it adds the drawer button.
+ * Desktop top bar and mobile app bar (D18, M18): page title on the left, notifications
+ * and the signed-in player on the right. On mobile it adds the drawer button.
  */
 export function TopBar({ eyebrow, title, user, notificationCount = 0 }: TopBarProps) {
-  const pathname = usePathname();
   const openDrawer = useDrawerStore((state) => state.open);
   const count = formatCount(notificationCount);
 
@@ -54,16 +52,12 @@ export function TopBar({ eyebrow, title, user, notificationCount = 0 }: TopBarPr
       </div>
 
       <div className="flex items-center gap-sp-10">
-        <span className="hidden rounded-sm border border-bd bg-s2 px-sp-10 py-sp-4 t-data text-brand md:inline">
-          {pathname}
-        </span>
-        <span aria-hidden="true" className="hidden h-sp-24 border-l border-bd md:block" />
         {/* The alerts screen is a mobile tab, so the bell button is desktop only. */}
         <Link
           href={ROUTES.alerts}
           aria-label={notificationCount > 0 ? `Notifications, ${count} unread` : 'Notifications'}
           className={cn(
-            'relative hidden size-control-sm place-items-center rounded-md border border-bd bg-s2 t-ui text-mut transition-colors hover:text-tx md:grid',
+            'relative hidden size-control-sm place-items-center rounded-md border border-bd bg-s2 text-mut transition-colors hover:text-tx md:grid',
             focusRing,
           )}
         >

@@ -23,7 +23,7 @@ describe('NavDrawer', () => {
     });
 
     expect(await screen.findByRole('dialog', { name: 'Navigation' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Clan directory' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Dashboard' })).toBeInTheDocument();
   });
 
   it('closes when a link is chosen', async () => {

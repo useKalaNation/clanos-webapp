@@ -37,6 +37,13 @@ describe('findActive', () => {
   });
 });
 
+describe('hidden items', () => {
+  it('stay matchable so the top bar can still name the page', () => {
+    expect(items.find((item) => item.id === 'clan-directory')?.hidden).toBe(true);
+    expect(findActive<NavItem>(items, '/clans')?.label).toBe('Clan directory');
+  });
+});
+
 describe('visibleNavGroups', () => {
   it('hides the Admin group from everyone but admins', () => {
     const groups = getNavGroups(context);

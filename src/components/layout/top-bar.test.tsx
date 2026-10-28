@@ -21,10 +21,10 @@ describe('TopBar', () => {
     expect(screen.getByText('Public')).toBeInTheDocument();
   });
 
-  it('shows the current route', () => {
+  it('does not show the current route', () => {
     render(<TopBar title="Clan directory" user={user} />);
 
-    expect(screen.getByText('/clans')).toBeInTheDocument();
+    expect(screen.queryByText('/clans')).not.toBeInTheDocument();
   });
 
   it('links to notifications and announces the unread count', () => {

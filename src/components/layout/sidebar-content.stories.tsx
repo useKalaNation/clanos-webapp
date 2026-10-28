@@ -27,7 +27,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** D18: Clan directory is active. */
+/** On the clan directory the item is hidden, so nothing in the list is highlighted. */
 export const Default: Story = {};
 
 export const ClanPageActive: Story = {

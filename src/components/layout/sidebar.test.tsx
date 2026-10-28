@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { Sidebar } from './sidebar';
 
-vi.mock('next/navigation', () => ({ usePathname: () => '/clans' }));
+vi.mock('next/navigation', () => ({ usePathname: () => '/dashboard' }));
 
 describe('Sidebar', () => {
   it('is a landmark that is hidden below 768px', () => {
@@ -16,9 +16,6 @@ describe('Sidebar', () => {
   it('holds the navigation', () => {
     render(<Sidebar clanId="rvnt" clanName="Revenant Syndicate" />);
 
-    expect(screen.getByRole('link', { name: 'Clan directory' })).toHaveAttribute(
-      'aria-current',
-      'page',
-    );
+    expect(screen.getByRole('link', { name: 'Dashboard' })).toHaveAttribute('aria-current', 'page');
   });
 });

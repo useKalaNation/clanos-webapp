@@ -20,7 +20,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** Desktop (D18): 72px bar with the route, notifications and the player. */
+/** Desktop (D18): 72px bar with the bell and the player. */
 export const Desktop: Story = { parameters: { viewport: { defaultViewport: 'desktop' } } };
 
 export const NoNotifications: Story = {
@@ -28,5 +28,5 @@ export const NoNotifications: Story = {
   parameters: { viewport: { defaultViewport: 'desktop' } },
 };
 
-/** Mobile (M18): 56px app bar with the drawer button; the route and bell are desktop only. */
+/** Mobile (M18): 56px app bar with the drawer button; the bell is desktop only. */
 export const Mobile: Story = { parameters: { viewport: { defaultViewport: 'mobile' } } };

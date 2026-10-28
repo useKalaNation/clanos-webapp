@@ -46,6 +46,8 @@ export interface NavItem extends Matchable {
   /** Without an href the item has no screen yet and renders as a disabled "soon" item. */
   href?: string;
   roles?: readonly Role[];
+  /** Not listed in the sidebar, but still names the page in the top bar when it is active. */
+  hidden?: boolean;
 }
 
 export interface NavGroup {
@@ -71,7 +73,7 @@ export function getNavGroups({ clanId, clanName }: NavContext): NavGroup[] {
       label: 'Public',
       eyebrow: 'Public',
       items: [
-        { id: 'clan-directory', label: 'Clan directory', href: ROUTES.clans },
+        { id: 'clan-directory', label: 'Clan directory', href: ROUTES.clans, hidden: true },
         {
           id: 'clan-profile',
           label: 'Clan profile',
