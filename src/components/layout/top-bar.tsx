@@ -1,6 +1,6 @@
 'use client';
 
-import { MenuIcon } from 'lucide-react';
+import { BellIcon, MenuIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -67,7 +67,7 @@ export function TopBar({ eyebrow, title, user, notificationCount = 0 }: TopBarPr
             focusRing,
           )}
         >
-          N
+          <BellIcon aria-hidden="true" className="size-sp-16" />
           {notificationCount > 0 ? (
             <span
               aria-hidden="true"

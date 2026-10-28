@@ -15,7 +15,6 @@ export function BrandMark({ onNavigate, className }: BrandMarkProps) {
     <Link
       href={ROUTES.dashboard}
       onClick={onNavigate}
-      aria-label="CLANOS, Clan operating system. Go to dashboard"
       className={cn('flex items-center gap-sp-10 rounded-md', focusRing, className)}
     >
       <span
@@ -24,7 +23,7 @@ export function BrandMark({ onNavigate, className }: BrandMarkProps) {
       >
         C
       </span>
-      <span aria-hidden="true" className="flex flex-col">
+      <span className="flex flex-col">
         <span className="t-wordmark text-tx">CLANOS</span>
         <span className="t-label text-mut">Clan operating system</span>
       </span>
