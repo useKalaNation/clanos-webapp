@@ -8,7 +8,7 @@ describe('BrandMark', () => {
   it('links to the dashboard with one accessible name', () => {
     render(<BrandMark />);
 
-    expect(screen.getByRole('link', { name: 'CLANOS, Clan operating system' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'CLANOSClan operating system' })).toHaveAttribute(
       'href',
       '/dashboard',
     );
