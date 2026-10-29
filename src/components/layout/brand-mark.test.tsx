@@ -8,9 +8,10 @@ describe('BrandMark', () => {
   it('links to the dashboard with one accessible name', () => {
     render(<BrandMark />);
 
-    expect(
-      screen.getByRole('link', { name: 'CLANOS, Clan operating system. Go to dashboard' }),
-    ).toHaveAttribute('href', '/dashboard');
+    expect(screen.getByRole('link', { name: 'CLANOS, Clan operating system' })).toHaveAttribute(
+      'href',
+      '/dashboard',
+    );
   });
 
   it('reports navigation so the drawer can close', async () => {

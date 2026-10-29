@@ -15,7 +15,7 @@ export function BrandMark({ onNavigate, className }: BrandMarkProps) {
     <Link
       href={ROUTES.dashboard}
       onClick={onNavigate}
-      aria-label="CLANOS, Clan operating system. Go to dashboard"
+      aria-label="CLANOS, Clan operating system"
       className={cn('flex items-center gap-sp-10 rounded-md', focusRing, className)}
     >
       <span
